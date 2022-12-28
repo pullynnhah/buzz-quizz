@@ -19,3 +19,10 @@ function scroll(el) {
     inline: "center",
   });
 }
+
+function verifyHex(hex) {
+  if (/^#([\dA-Fa-f]{3}){1,2}$/i.test(hex)) {
+    return hex;
+  }
+  return false;
+}

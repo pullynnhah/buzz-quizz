@@ -66,5 +66,45 @@
   display: block;
   width: calc(100vw - 32px);
   text-align: center;
-  margin: 29px auto;
+  margin: 36px auto;
+}
+
+.create-quizz details {
+  margin-bottom: 27px;
+}
+
+.create-quizz summary {
+  padding: 21px 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-quizz ion-icon {
+  font-size: 26px;
+}
+
+.create-quizz details[open] ion-icon {
+  display: none;
+}
+
+.create-quizz details h3 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  align-self: flex-start;
+}
+
+.create-quizz details .form {
+  padding-top: 0;
+}
+
+.create-quizz details .form h3 {
+  padding: 28px 0 14px;
+}
+
+.create-quizz .pair {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
 }
