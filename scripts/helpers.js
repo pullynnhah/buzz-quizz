@@ -1,6 +1,5 @@
 function getQuizzesIds() {
-  const ids = loadLocalStorage();
-  return ids ? Object.keys(ids) : [];
+  return [...Object.keys(loadLocalStorage())].map(Number);
 }
 
 function renderLoader() {

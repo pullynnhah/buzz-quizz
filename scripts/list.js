@@ -6,12 +6,11 @@ function getQuizzes() {
 
 function renderQuizzes(response) {
   const userIds = getQuizzesIds();
-
   const userQuizzes = [];
   const otherQuizzes = [];
 
   response.data.forEach(quiz => {
-    if (userIds.includes(quiz.id)) userQuizzes.push(quiz);
+    if (userIds.includes(Number(quiz.id))) userQuizzes.push(quiz);
     else otherQuizzes.push(quiz);
   });
 
