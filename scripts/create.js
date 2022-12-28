@@ -1,5 +1,4 @@
 function renderBasicInfo() {
-  createQuiz = {};
   main.innerHTML = `
   <div class="create-quizz">
     <h2>Comece pelo começo</h2>
@@ -42,6 +41,7 @@ function renderBasicInfo() {
 }
 
 function getBasicInfo() {
+  createQuiz = {};
   const quizzTitle = document.querySelector(".quizz-title");
   const quizzImage = document.querySelector(".quizz-image");
   const quizzQuestionsAmount = document.querySelector(
@@ -63,10 +63,12 @@ function getBasicInfo() {
   displayErr(quizzLevels, quizzLevelsCond);
 
   if (
-    quizzTitleCond &&
-    quizzImageCond &&
-    quizzQuestionsAmountCond &&
-    quizzLevelsCond
+    !(
+      quizzTitleCond ||
+      quizzImageCond ||
+      quizzQuestionsAmountCond ||
+      quizzLevelsCond
+    )
   ) {
     createQuiz.title = quizzTitle.value;
     createQuiz.image = quizzImage.value;
@@ -103,12 +105,12 @@ function renderQuestions() {
         </div>
 
         <h3>Resposta correta</h3>
-        ${getPair(0)}
+        ${getPairHTML(0)}
 
         <h3>Respostas incorretas</h3>
-        ${getPair(1)}
-        ${getPair(2)}
-        ${getPair(3)}
+        ${getPairHTML(1)}
+        ${getPairHTML(2)}
+        ${getPairHTML(3)}
       </div>
     </details>
     </div>
@@ -136,7 +138,98 @@ function renderQuestions() {
   );
 }
 
-function getPair(index) {
+function getQuestions() {
+  const forms = document.querySelectorAll(".form");
+  createQuestions = [];
+
+  forms.forEach(form => {
+    const quizzQuestionText = form.querySelector(".quizz-question-text");
+    const quizzQuestionColor = form.querySelector(".quizz-question-color");
+
+    const quizzRightAnswer = form.querySelector(".quizz-right-answer");
+    const quizzRightAnswerImg = form.querySelector(".quizz-right-answer-img");
+
+    const quizzWrongAnswers = form.querySelectorAll(".quizz-wrong-answer");
+    const quizzWrongAnswersImg = form.querySelectorAll(
+      ".quizz-wrong-answer-img"
+    );
+
+    const quizzQuestionTextCond = quizzQuestionText.value.length < 20;
+    const quizzQuestionColorCond = !/^#([\dA-Fa-f]{3}){1,2}$/i.test(
+      quizzQuestionColor.value
+    );
+
+    const quizzRightAnswerCond = quizzRightAnswer.value.length === 0;
+    const quizzRightAnswerImgCond =
+      quizzRightAnswerImg.value.length === 0 ||
+      !quizzRightAnswerImg.checkValidity();
+
+    displayErr(quizzQuestionText, quizzQuestionTextCond);
+    displayErr(quizzQuestionColor, quizzQuestionColorCond);
+    displayErr(quizzRightAnswer, quizzRightAnswerCond);
+    displayErr(quizzRightAnswerImg, quizzRightAnswerImgCond);
+
+    const wrongs = [];
+    for (let i = 0; i < 3; i++) {
+      const wrong = quizzWrongAnswers[i];
+      const wrongImg = quizzWrongAnswersImg[i];
+
+      if (wrong.value || wrongImg.value) {
+        const wrongCond = wrong.value.length === 0;
+        const wrongImgCond =
+          wrongImg.value.length === 0 || !wrongImg.checkValidity();
+        displayErr(wrong, wrongCond);
+        displayErr(wrongImg, wrongImgCond);
+        if (!(wrongCond || wrongImgCond)) {
+          console.log("AAAA");
+          wrongs.push({
+            text: wrong.value,
+            image: wrongImg.value,
+            isCorrectAnswer: false,
+          });
+        }
+      } else {
+        displayErr(wrong, false);
+        displayErr(wrongImg, false);
+      }
+    }
+
+    if (wrongs.length === 0) {
+      displayErr(quizzWrongAnswers[0], true);
+      displayErr(quizzWrongAnswersImg[0], true);
+    } else if (
+      !(
+        quizzQuestionTextCond ||
+        quizzQuestionColorCond ||
+        quizzRightAnswerCond ||
+        quizzRightAnswerImgCond
+      )
+    ) {
+      createQuestions.push({
+        title: quizzQuestionText.value,
+        color: quizzQuestionColor.value,
+        answers: [
+          ...wrongs,
+          {
+            text: quizzRightAnswer.value,
+            image: quizzRightAnswerImg.value,
+            isCorrectAnswer: true,
+          },
+        ],
+      });
+    }
+  });
+
+  if (createQuestions.length === createQuestionsCount) {
+    createQuiz.questions = createQuestions;
+    renderLevels();
+  }
+}
+
+function renderLevels() {
+  console.log(createQuiz);
+}
+function getPairHTML(index) {
   const cls = index === 0 ? "right" : "wrong";
   const placeholder1 = index === 0 ? "correta" : `incorreta ${index}`;
   const placeholder2 = index === 0 ? "" : `${index}`;
@@ -153,7 +246,6 @@ function getPair(index) {
       <input
         class="quizz-${cls}-answer-img"
         type="url"
-        required
         placeholder="URL da imagem ${placeholder2}" />
       <p class="err">O valor informado não é uma URL válida</p>
     </div>
@@ -167,8 +259,9 @@ function displayErr(el, cond) {
 }
 
 let createQuestions;
+let createAnswers;
 let createLevels;
-let createQuestionsCount = 3;
+let createQuestionsCount = 1;
 let createLevelsCount;
 
 // renderBasicInfo();
