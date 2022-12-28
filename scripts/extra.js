@@ -1,5 +1,4 @@
 function delQuiz(e, id) {
-  e.stopPropagation();
   if (confirm("Deseja mesmo excluir esse quizz?")) {
     const key = loadLocalStorage()[`${id}`];
     const promise = axios.delete(`${URI}/${id}`, {

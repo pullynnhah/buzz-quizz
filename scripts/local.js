@@ -7,11 +7,3 @@ function saveLocalStorage(key, value) {
   data[key] = value;
   localStorage.setItem("buzz-quizz", JSON.stringify(data));
 }
-
-function delLocalStorage(key) {
-  const data = loadLocalStorage();
-  if (data) {
-    delete data[key];
-    localStorage.setItem("buzz-quizz", JSON.stringify(data));
-  }
-}
