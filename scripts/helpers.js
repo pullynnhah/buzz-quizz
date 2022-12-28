@@ -11,3 +11,11 @@ function renderLoader() {
   </div>
   `;
 }
+
+function scroll(el) {
+  el.scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+    inline: "center",
+  });
+}

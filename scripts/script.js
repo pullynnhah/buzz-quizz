@@ -25,5 +25,7 @@ function logErr(err) {
 const main = document.querySelector("main");
 let playQuiz;
 let quests;
+
 let answerCount;
 let rightCount;
+let score;

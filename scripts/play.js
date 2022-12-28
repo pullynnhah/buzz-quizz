@@ -4,6 +4,7 @@ function play(id) {
   const promise = axios.get(`${URI}/quizzes/${id}`);
 
   promise.then(renderPlayQuiz).catch(logErr);
+  renderLoader();
 }
 
 function renderPlayQuiz(response) {
@@ -85,15 +86,7 @@ function select(option, indexQuestion, indexAnswer) {
     }
 
     if (++answerCount < playQuiz.questions.length) {
-      setTimeout(
-        () =>
-          quests[answerCount].scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-            inline: "center",
-          }),
-        2000
-      );
+      setTimeout(() => scroll(quests[answerCount]), 2000);
     } else {
       setTimeout(renderScore, 2000);
     }
@@ -101,20 +94,30 @@ function select(option, indexQuestion, indexAnswer) {
 }
 
 function renderScore() {
+  score = Math.round((rightCount * 100) / playQuiz.questions.length);
+  const lvl = calcLevel();
+
   main.innerHTML += `
-  
+  <article class="result">
+    <div class="container">
+      <h3>${lvl.title}</h3>
+      <img src="${lvl.image}" alt="${lvl.title}" />
+      <p>${lvl.text}</p>
+    </div>
+  </article>
   `;
-  calcScore();
+
+  scroll(document.querySelector(".result"));
 }
 
-function calcScore() {
+function calcLevel() {
   const levels = playQuiz.levels
     .map(level => ({ ...level, minValue: Number(level.minValue) }))
     .sort((a, b) => a.minValue - b.minValue);
-  const percentage = Math.round((rightCount * 100) / playQuiz.questions.length);
+
   let i = 0;
   for (i = 0; i < levels.length; i++) {
-    if (levels[i].minValue > percentage) {
+    if (levels[i].minValue > score) {
       break;
     }
   }
