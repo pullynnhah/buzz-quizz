@@ -57,6 +57,7 @@
 .create-quizz .input-err textarea {
   background: #ffe9e9;
 }
+
 .create-quizz .input-err .err,
 .err-level {
   display: block;
