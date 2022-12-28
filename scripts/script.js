@@ -1,10 +1,5 @@
 const URI = "https://mock-api.driven.com.br/api/vs/buzzquizz/quizzes";
 
-function editTemp(e) {
-  e.stopPropagation();
-  console.log("EDIT");
-}
-
 function logErr(err) {
   console.log(err);
 }
