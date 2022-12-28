@@ -97,4 +97,4 @@ function getOtherQuizzesHTML(quizzes) {
   `;
 }
 
-getQuizzes();
+// getQuizzes();

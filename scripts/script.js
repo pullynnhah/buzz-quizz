@@ -1,7 +1,7 @@
 const URI = "https://mock-api.driven.com.br/api/v4/buzzquizz";
 
-function playTemp() {
-  console.log("PLAY");
+function playTemp(id) {
+  console.log("PLAY " + id);
 }
 
 function editTemp(e) {
