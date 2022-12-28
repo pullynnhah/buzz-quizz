@@ -244,7 +244,6 @@ function getPairHTML(index) {
 function renderLevels() {
   let html = "";
   for (let i = 1; i <= createLevelsCount; i++) {
-    /*html*/
     html += `
     <div class="container">
     <details>
