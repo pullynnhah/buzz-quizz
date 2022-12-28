@@ -1,9 +1,5 @@
 const URI = "https://mock-api.driven.com.br/api/vs/buzzquizz";
 
-function playTemp(id) {
-  console.log("PLAY " + id);
-}
-
 function editTemp(e) {
   e.stopPropagation();
   console.log("EDIT");
@@ -19,6 +15,7 @@ function createTemp() {
 }
 
 function logErr(err) {
+  // TODO: replace all with reload
   console.log(err);
 }
 

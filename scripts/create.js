@@ -12,12 +12,12 @@ function renderBasicInfo() {
         <p class="err">O título deve ter entre 20 e 65 caracteres</p>
         </div>
         <div>
-        <input
-        class="quizz-image"
-        type="url"
-        required
-        placeholder="URL da imagem do seu quizz" />
-        <p class="err">O valor informado não é uma URL válida</p>
+          <input
+          class="quizz-image"
+          type="url"
+          required
+          placeholder="URL da imagem do seu quizz" />
+          <p class="err">O valor informado não é uma URL válida</p>
         </div>
         <div>
           <input
@@ -126,16 +126,7 @@ function renderQuestions() {
     </button>
   </div>
   `;
-  const dets = document.querySelectorAll("details");
-  dets.forEach(target =>
-    target.addEventListener("click", () =>
-      dets.forEach(det => {
-        if (det !== target) {
-          det.removeAttribute("open");
-        }
-      })
-    )
-  );
+  autoCloseDetails();
 }
 
 function getQuestions() {
@@ -226,9 +217,6 @@ function getQuestions() {
   }
 }
 
-function renderLevels() {
-  console.log(createQuiz);
-}
 function getPairHTML(index) {
   const cls = index === 0 ? "right" : "wrong";
   const placeholder1 = index === 0 ? "correta" : `incorreta ${index}`;
@@ -253,16 +241,138 @@ function getPairHTML(index) {
   `;
 }
 
+function renderLevels() {
+  let html = "";
+  for (let i = 1; i <= createLevelsCount; i++) {
+    /*html*/
+    html += `
+    <div class="container">
+    <details>
+      <summary>
+        <h3>Nível ${i}</h3>
+        <ion-icon name="create-outline"></ion-icon>
+      </summary>
+      <div class="form">
+        <div>
+          <input
+            class="quizz-level-title"
+            type="text"
+            placeholder="Título do nível" />
+          <p class="err">O título deve ter no mínimo 10 caracteres</p>
+        </div>
+        <div>
+          <input
+            class="quizz-level-percentage"
+            type="text"
+            placeholder="% de acerto mínima" />
+          <p class="err">Porcentagem deve estar entre 0 e 100</p>
+        </div>
+
+        <div>
+          <input
+          class="quizz-level-image"
+          type="url"
+          required
+          placeholder="URL da imagem do nível" />
+          <p class="err">O valor informado não é uma URL válida</p>
+        </div>
+        <div>
+          <textarea class="quizz-level-desc" placeholder="Descrição do nível"></textarea>
+          <p class="err">A descrição deve ter no mínimo 30 caracteres</p>
+        </div>
+      </div>
+    </details>
+    </div>
+    `;
+  }
+
+  main.innerHTML = `
+  <div class="create-quizz">
+    <h2>Crie suas perguntas</h2>
+      ${html}
+      <p class="err-level"></p>
+    <button class="red-btn" onclick="getLevels()">
+      Finalizar Quizz
+    </button>
+  </div>
+`;
+
+  autoCloseDetails();
+}
+
+function getLevels() {
+  const forms = document.querySelectorAll(".form");
+  const createLevels = [];
+  let hasZero = false;
+  forms.forEach(form => {
+    const quizzLevelTitle = form.querySelector(".quizz-level-title");
+    const quizzLevelPercentage = form.querySelector(".quizz-level-percentage");
+    const quizzLevelImage = form.querySelector(".quizz-level-image");
+    const quizzLevelDesc = form.querySelector(".quizz-level-desc");
+
+    const quizzLevelTitleCond = quizzLevelTitle.value.length < 10;
+    const quizzLevelPercentageCond = !isValidPercentage(
+      quizzLevelPercentage.value
+    );
+    const quizzLevelImageCond = !quizzLevelImage.checkValidity();
+    const quizzLevelDescCond = quizzLevelDesc.value.length < 30;
+
+    displayErr(quizzLevelTitle, quizzLevelTitleCond);
+    displayErr(quizzLevelPercentage, quizzLevelPercentageCond);
+    displayErr(quizzLevelImage, quizzLevelImageCond);
+    displayErr(quizzLevelDesc, quizzLevelDescCond);
+
+    if (!quizzLevelPercentageCond) {
+      if (parseInt(quizzLevelPercentage.value) === 0) hasZero = true;
+      if (!(quizzLevelTitleCond || quizzLevelImageCond || quizzLevelDescCond)) {
+        createLevels.push({
+          title: quizzLevelTitle.value,
+          image: quizzLevelImage.value,
+          text: quizzLevelDesc.value,
+          minValue: parseInt(quizzLevelPercentage.value),
+        });
+      }
+    }
+  });
+
+  displayErrLevel(!hasZero);
+  if (hasZero && createLevels.length === createLevelsCount) {
+    createQuiz.levels = createLevels;
+    postQuizz();
+  }
+}
+
+function isValidPercentage(percentage) {
+  if (isNaN(percentage)) return false;
+  percentage = parseInt(percentage);
+  return percentage >= 0 && percentage <= 100;
+}
+
+function autoCloseDetails() {
+  const dets = document.querySelectorAll("details");
+  dets.forEach(target =>
+    target.addEventListener("click", () =>
+      dets.forEach(det => {
+        if (det !== target) {
+          det.removeAttribute("open");
+        }
+      })
+    )
+  );
+}
+
 function displayErr(el, cond) {
   if (cond) el.parentNode.classList.add("input-err");
   else el.parentNode.classList.remove("input-err");
 }
 
+function displayErrLevel(cond) {
+  const errLevel = document.querySelector(".err-level");
+  errLevel.textContent = cond ? "Pelo menos um nível deve ter 0%" : "";
+}
+
 let createQuestions;
 let createAnswers;
 let createLevels;
-let createQuestionsCount = 1;
+let createQuestionsCount;
 let createLevelsCount;
-
-// renderBasicInfo();
-renderQuestions();

@@ -31,7 +31,7 @@ function getUserQuizzesHTML(quizzes) {
         Você não criou nenhum<br />
         quizz ainda :(
       </p>
-      <button onclick="createTemp()">Criar Quizz</button>
+      <button onclick="renderBasicInfo()">Criar Quizz</button>
     </div>
     `;
   }
@@ -63,7 +63,7 @@ function getUserQuizzesHTML(quizzes) {
   <section class="user-quizzes" aria-labelledby="user-quizzes">
     <div class="title">
       <h2 id="user-quizzes">Seus Quizzes</h2>
-      <ion-icon onclick="createTemp()" name="add-circle"></ion-icon>
+      <ion-icon onclick="renderBasicInfo()" name="add-circle"></ion-icon>
     </div>
     <div class="quizzes">
     ${html}
@@ -97,4 +97,4 @@ function getOtherQuizzesHTML(quizzes) {
   `;
 }
 
-// getQuizzes();
+getQuizzes();
