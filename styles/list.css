@@ -1,0 +1,149 @@
+.all-quizzes {
+  max-width: 680px;
+  width: 92vw;
+  margin: 100px auto;
+}
+
+.no-quizzes {
+  width: 100%;
+  height: 181px;
+  margin-bottom: 35px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  border: 1px dashed #d5d5d5;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.no-quizzes p {
+  font-size: 20px;
+  line-height: 23px;
+
+  color: #b9b9b9;
+}
+
+.no-quizzes button {
+  width: 151px;
+  height: 40px;
+
+  font-size: 21px;
+  line-height: 25px;
+
+  color: #ec362d;
+  border: 1px dashed #ec362d;
+  border-radius: 50px;
+}
+
+.user-quizzes .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.all-quizzes h2 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.all-quizzes ion-icon {
+  font-size: 31px;
+  color: #ec362d;
+}
+
+.quiz {
+  width: 100%;
+  aspect-ratio: 1.88;
+  position: relative;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.5) 64.58%,
+    #000000 100%
+  );
+
+  border-radius: 5px;
+  overflow: hidden;
+
+  margin-bottom: 14px;
+}
+
+.quiz img {
+  width: 100%;
+  aspect-ratio: 1.88;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.quiz h3 {
+  max-height: 88px;
+  font-size: 19px;
+  line-height: 22px;
+  color: #fff;
+
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 8px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quiz .container-btns {
+  width: 43px;
+  height: 87px;
+
+  position: absolute;
+  top: 9px;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  background: #ec362d;
+  border-radius: 10px 0 0 10px;
+}
+
+.container-btns ion-icon {
+  font-size: 22px;
+  color: #fff;
+}
+
+.other-quizzes h2 {
+  margin: 38px 0 16px;
+}
+
+@media (min-width: 1100px) {
+  .all-quizzes {
+    width: 1051px;
+    max-width: 1051px;
+    margin: 147px auto;
+  }
+
+  .user-quizzes .title {
+    justify-content: flex-start;
+    gap: 18px;
+  }
+
+  .all-quizzes .quizzes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .quiz {
+    width: 340px;
+    margin-bottom: 0;
+  }
+}
