@@ -169,4 +169,9 @@ textarea {
     font-size: 23px;
     line-height: 27px;
   }
+
+  textarea {
+    height: 46px;
+    resize: none;
+  }
 }
