@@ -1,4 +1,4 @@
-const URI = "https://mock-api.driven.com.br/api/vs/buzzquizz";
+const URI = "https://mock-api.driven.com.br/api/vs/buzzquizz/quizzes";
 
 function editTemp(e) {
   e.stopPropagation();

@@ -19,3 +19,7 @@ function scroll(el) {
     inline: "center",
   });
 }
+
+function expandHEX(hex) {
+  return [...hex.slice(1)].reduce((ac, digit) => ac + digit.repeat(2), "#");
+}

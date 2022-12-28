@@ -136,10 +136,34 @@ textarea {
   display: none;
 }
 
+.create-quizz .quiz {
+  width: 92vw;
+  max-width: 500px;
+  display: block;
+  margin: 0 auto;
+}
+
+.create-quizz .quiz h3 {
+  bottom: 17px;
+}
+
 @media (min-width: 1100px) {
+  .create-quizz :not(.play-btns) .red-btn {
+    margin: 85px auto;
+  }
+
+  .create-quizz .play-btns {
+    height: 180px;
+  }
   .create-quizz .red-btn {
+    width: 240px;
     font-size: 21px;
     line-height: 25px;
-    margin: 85px auto;
+  }
+
+  .create-quizz .quiz h3 {
+    bottom: 30px;
+    font-size: 23px;
+    line-height: 27px;
   }
 }

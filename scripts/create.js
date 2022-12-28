@@ -55,7 +55,7 @@ function getBasicInfo() {
   const quizzQuestionsAmountCond =
     isNaN(quizzQuestionsAmount.value) || Number(quizzQuestionsAmount.value) < 3;
   const quizzLevelsCond =
-    !isNaN(quizzLevels.value) || Number(quizzLevels.value) < 2;
+    isNaN(quizzLevels.value) || Number(quizzLevels.value) < 2;
 
   displayErr(quizzTitle, quizzTitleCond);
   displayErr(quizzImage, quizzImageCond);
@@ -161,6 +161,7 @@ function getQuestions() {
     displayErr(quizzRightAnswerImg, quizzRightAnswerImgCond);
 
     const wrongs = [];
+    let firstWrong;
     for (let i = 0; i < 3; i++) {
       const wrong = quizzWrongAnswers[i];
       const wrongImg = quizzWrongAnswersImg[i];
@@ -172,7 +173,6 @@ function getQuestions() {
         displayErr(wrong, wrongCond);
         displayErr(wrongImg, wrongImgCond);
         if (!(wrongCond || wrongImgCond)) {
-          console.log("AAAA");
           wrongs.push({
             text: wrong.value,
             image: wrongImg.value,
@@ -186,8 +186,12 @@ function getQuestions() {
     }
 
     if (wrongs.length === 0) {
-      displayErr(quizzWrongAnswers[0], true);
-      displayErr(quizzWrongAnswersImg[0], true);
+      displayErr(quizzWrongAnswers[0], quizzWrongAnswers[0].value.length === 0);
+      displayErr(
+        quizzWrongAnswersImg[0],
+        quizzWrongAnswersImg[0].value.length === 0 ||
+          !quizzWrongAnswersImg[0].checkValidity()
+      );
     } else if (
       !(
         quizzQuestionTextCond ||
@@ -196,9 +200,11 @@ function getQuestions() {
         quizzRightAnswerImgCond
       )
     ) {
+      const hexColor = quizzQuestionColor.value;
+
       createQuestions.push({
         title: quizzQuestionText.value,
-        color: quizzQuestionColor.value,
+        color: hexColor.length === 7 ? hexColor : expandHEX(hexColor),
         answers: [
           ...wrongs,
           {
@@ -339,6 +345,36 @@ function getLevels() {
     createQuiz.levels = createLevels;
     postQuizz();
   }
+}
+
+function postQuizz() {
+  const promise = axios.post(URI, createQuiz);
+  promise
+    .then(response => {
+      const { id, key, title, image } = response.data;
+      saveLocalStorage(id, key);
+      renderSuccess(id, title, image);
+    })
+    .catch(logErr);
+  renderLoader();
+}
+
+function renderSuccess(id, title, image) {
+  main.innerHTML = `
+  <div class="create-quizz">
+    <h2>Seu quizz está pronto!</h2>
+    <article class="quiz">
+      <img
+        src="${image}"
+        alt="${title}" />
+      <h3>${title}</h3>
+    </article>
+    <div class="play-btns">
+      <button class="red-btn" onclick="play(${id})">Acessar Quizz</button>
+      <button class="transparent-btn" onclick="getQuizzes()">Voltar pra home</button>
+    </div>
+  </div>
+  `;
 }
 
 function isValidPercentage(percentage) {

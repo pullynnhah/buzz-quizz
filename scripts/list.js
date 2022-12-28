@@ -1,5 +1,5 @@
 function getQuizzes() {
-  const promise = axios.get(`${URI}/quizzes`);
+  const promise = axios.get(URI);
   promise.then(renderQuizzes).catch(logErr);
   renderLoader();
 }

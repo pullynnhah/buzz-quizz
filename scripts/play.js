@@ -1,7 +1,7 @@
 function play(id) {
   answerCount = 0;
   rightCount = 0;
-  const promise = axios.get(`${URI}/quizzes/${id}`);
+  const promise = axios.get(`${URI}/${id}`);
 
   promise.then(renderPlayQuiz).catch(logErr);
   renderLoader();
