@@ -1,4 +1,4 @@
-const URI = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
+const URI = "https://mock-api.driven.com.br/api/vs/buzzquizz/quizzes";
 
 function logErr(err) {
   console.log(err);
