@@ -109,7 +109,6 @@ function renderScore() {
   `;
 
   scroll(document.querySelector(".result"));
-  renderRestartBtns();
 }
 
 function calcLevel() {
