@@ -17,3 +17,9 @@ function delTemp(e) {
 function createTemp() {
   console.log("CREATE");
 }
+
+function logErr(err) {
+  console.log(err);
+}
+
+const main = document.querySelector("main");

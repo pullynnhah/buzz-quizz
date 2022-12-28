@@ -28,3 +28,23 @@ h1 {
   line-height: 43px;
   color: #fff;
 }
+
+.loader {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.loader img {
+  width: 200px;
+}
+
+.loader p {
+  color: #ec362d;
+  font-size: 20px;
+  line-height: 24px;
+}
