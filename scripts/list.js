@@ -50,7 +50,7 @@ function getUserQuizzesHTML(quizzes) {
           onclick="editTemp(event, ${quiz.id})"
           name="create-outline"></ion-icon>
         <ion-icon
-          onclick="delTemp(event, ${quiz.id})"
+          onclick="delQuiz(event, ${quiz.id})"
           name="trash-outline"></ion-icon>
       </div>
     </article>
