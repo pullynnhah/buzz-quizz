@@ -22,7 +22,6 @@ function renderPlayQuiz(response) {
         alt="${playQuiz.title}" />
       <h2>${playQuiz.title}</h2>
     </div>
-
     ${questions}
     <div class="result-wrapper"></div>
     ${getRestartBtnsHTML()}
@@ -30,6 +29,11 @@ function renderPlayQuiz(response) {
   `;
 
   quests = document.querySelectorAll(".questions");
+
+  const questionList = document.querySelectorAll(".question");
+  questionList.forEach((question, idx) => {
+    question.style.background = playQuiz.questions[idx].color;
+  });
 }
 
 function getQuestionHTML(question, index) {
@@ -38,9 +42,7 @@ function getQuestionHTML(question, index) {
   <div class="questions">
     <article>
       <div class="container">
-        <h3 class="question">
-          Em qual animal Olho-Tonto Moody transfigurou Malfoy?
-        </h3>
+        <h3 class="question">${question.title}</h3>
         <div class="answers">${getAnswersHTML(question.answers, index)}</div>
       </div>
     </article>

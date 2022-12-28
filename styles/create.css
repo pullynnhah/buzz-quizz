@@ -155,8 +155,11 @@ textarea {
   .create-quizz .play-btns {
     height: 180px;
   }
-  .create-quizz .red-btn {
+  .create-quizz .play-btns .red-btn {
     width: 240px;
+  }
+
+  .create-quizz .red-btn {
     font-size: 21px;
     line-height: 25px;
   }
