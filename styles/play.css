@@ -98,12 +98,39 @@
   color: #ff4b4b;
 }
 
+.result img {
+  width: 100%;
+}
+
 .result p {
   font-weight: 700;
   font-size: 17px;
   line-height: 20px;
 
   color: #484848;
+}
+
+.play-btns {
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 46px;
+}
+
+.play-btns button {
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+}
+
+.red-btn {
+  width: 220px;
+  height: 44px;
+  color: #fff5f4;
+  background: #ec362d;
+  border-radius: 15px;
 }
 
 @media (min-width: 1100px) {
@@ -171,5 +198,22 @@
 
   .result p {
     grid-area: text;
+    font-size: 19px;
+    line-height: 25px;
+  }
+
+  .btns {
+    height: 180px;
+    margin-bottom: 76px;
+  }
+
+  .btns button {
+    font-size: 21px;
+    line-height: 25px;
+  }
+
+  .red-btn {
+    width: 260px;
+    height: 52px;
   }
 }

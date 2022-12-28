@@ -24,6 +24,8 @@ function renderPlayQuiz(response) {
     </div>
 
     ${questions}
+    <div class="result-wrapper"></div>
+    ${getRestartBtnsHTML()}
   </div>
   `;
 
@@ -96,11 +98,10 @@ function select(option, indexQuestion, indexAnswer) {
 function renderScore() {
   score = Math.round((rightCount * 100) / playQuiz.questions.length);
   const lvl = calcLevel();
-
-  main.innerHTML += `
+  document.querySelector(".result-wrapper").innerHTML += `
   <article class="result">
     <div class="container">
-      <h3>${lvl.title}</h3>
+      <h3>${score}% de acerto: ${lvl.title}</h3>
       <img src="${lvl.image}" alt="${lvl.title}" />
       <p>${lvl.text}</p>
     </div>
@@ -108,6 +109,7 @@ function renderScore() {
   `;
 
   scroll(document.querySelector(".result"));
+  renderRestartBtns();
 }
 
 function calcLevel() {
@@ -123,4 +125,13 @@ function calcLevel() {
   }
 
   return levels[i - 1];
+}
+
+function getRestartBtnsHTML() {
+  return `
+  <div class="play-btns">
+    <button class="red-btn" onclick="play(${playQuiz.id})">Reiniciar Quizz</button>
+    <button class="transparent-btn" onclick="getQuizzes()">Voltar pra home</button>
+  </div>
+  `;
 }
