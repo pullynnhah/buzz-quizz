@@ -37,7 +37,9 @@ function renderBasicInfo() {
     </div>
     <button class="red-btn" onclick="getBasicInfo()">Prosseguir pra criar perguntas</button>
   </div>
-`;
+  `;
+
+  if (editPages) fillForm(0);
 }
 
 function getBasicInfo() {
@@ -127,6 +129,7 @@ function renderQuestions() {
   </div>
   `;
   autoCloseDetails();
+  if (editPages) fillForm(1);
 }
 
 function getQuestions() {
@@ -303,6 +306,7 @@ function renderLevels() {
 `;
 
   autoCloseDetails();
+  if (editPages) fillForm(2);
 }
 
 function getLevels() {
@@ -348,11 +352,20 @@ function getLevels() {
 }
 
 function postQuizz() {
-  const promise = axios.post(URI, createQuiz);
+  let promise;
+  if (editPages) {
+    const key = loadLocalStorage()[`${editId}`];
+    promise = axios.put(`${URI}/${editId}`, createQuiz, {
+      headers: { "Secret-Key": key },
+    });
+  } else {
+    promise = axios.post(URI, createQuiz);
+  }
   promise
     .then(response => {
       const { id, key, title, image } = response.data;
-      saveLocalStorage(id, key);
+      if (editPages) editPages = null;
+      else saveLocalStorage(id, key);
       renderSuccess(id, title, image);
     })
     .catch(logErr);
@@ -406,6 +419,10 @@ function displayErrLevel(cond) {
   errLevel.textContent = cond ? "Pelo menos um nível deve ter 0%" : "";
 }
 
+function fillForm(page) {
+  const inputs = document.querySelectorAll("input, textarea");
+  inputs.forEach((input, idx) => (input.value = editPages[page][idx]));
+}
 let createQuestions;
 let createAnswers;
 let createLevels;

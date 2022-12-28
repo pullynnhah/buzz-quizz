@@ -47,7 +47,7 @@ function getUserQuizzesHTML(quizzes) {
 
       <div class="container-btns">
         <ion-icon
-          onclick="editTemp(event, ${quiz.id})"
+          onclick="editQuiz(event, ${quiz.id})"
           name="create-outline"></ion-icon>
         <ion-icon
           onclick="delQuiz(event, ${quiz.id})"
