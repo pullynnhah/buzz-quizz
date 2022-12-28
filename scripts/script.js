@@ -23,9 +23,14 @@ function logErr(err) {
 }
 
 const main = document.querySelector("main");
+
+// play.js variables
 let playQuiz;
 let quests;
 
 let answerCount;
 let rightCount;
 let score;
+
+// create.js variables
+let createQuiz;
