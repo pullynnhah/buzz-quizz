@@ -40,7 +40,7 @@ function getUserQuizzesHTML(quizzes) {
     return (
       ac +
       `
-    <article class="quiz" onclick="playTemp(${quiz.id})">
+    <article class="quiz" onclick="play(${quiz.id})">
       <img
         src="${quiz.image}"
         alt="${quiz.title}" />
@@ -77,7 +77,7 @@ function getOtherQuizzesHTML(quizzes) {
     return (
       ac +
       `
-    <article class="quiz" onclick="playTemp(${quiz.id})">
+    <article class="quiz" onclick="play(${quiz.id})">
       <img
         src="${quiz.image}"
         alt="${quiz.title}" />
@@ -97,4 +97,4 @@ function getOtherQuizzesHTML(quizzes) {
   `;
 }
 
-// getQuizzes();
+getQuizzes();

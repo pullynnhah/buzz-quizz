@@ -73,6 +73,8 @@
 
 .answers img {
   width: 100%;
+  aspect-ratio: 1.44;
+  object-fit: cover;
 }
 
 .answers p {

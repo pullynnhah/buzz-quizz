@@ -1,4 +1,4 @@
-const URI = "https://mock-api.driven.com.br/api/v4/buzzquizz";
+const URI = "https://mock-api.driven.com.br/api/vs/buzzquizz";
 
 function playTemp(id) {
   console.log("PLAY " + id);
@@ -23,3 +23,7 @@ function logErr(err) {
 }
 
 const main = document.querySelector("main");
+let playQuiz;
+let quests;
+let answerCount;
+let rightCount;
