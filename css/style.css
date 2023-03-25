@@ -52,7 +52,7 @@ main {
 }
 
 @media (min-width: 1100px) {
-  main {
+  main:has(.quizzes-page) {
     width: 1051px;
     margin: 69px auto;
   }
