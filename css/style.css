@@ -12,6 +12,7 @@ header {
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 1;
 
   display: flex;
   justify-content: center;
@@ -26,4 +27,15 @@ h1 {
   font-weight: 700;
   font-size: 37px;
   line-height: 43px;
+}
+
+main {
+  margin: 69px 0;
+}
+
+@media (min-width: 1100px) {
+  main {
+    width: 1051px;
+    margin: 69px auto;
+  }
 }
