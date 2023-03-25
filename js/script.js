@@ -4,8 +4,14 @@ function renderQuizzesPage(userQuizzes, allQuizzes) {
 
 function renderQuizzPage(quizz) {
   mainEl.innerHTML = quizzPageHTML(quizz);
-  quizzQuestionsEl = document.querySelectorAll(".quizz");
-  quizzIdx = 1;
+  quizzEl = document.querySelectorAll(".quizz");
+  quizzIdx = 0;
+}
+
+function renderResults(result, percentage) {
+  console.log("renderrrr");
+  mainEl.querySelector(".quizz-page").innerHTML += quizzResultHTML(result, percentage);
+  scroll(mainEl.querySelector(".quizz-result"));
 }
 
 function renderLoader() {
@@ -26,9 +32,10 @@ function scroll(el) {
 
 const mainEl = document.querySelector("main");
 
-let quizzQuestionsEl;
+let quizzEl;
 let quizzPercentage;
 let quizzIdx;
+let playQuizz;
 const quizzQuestionsCounter = {
   questions: 0,
   answered: 0,

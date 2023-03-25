@@ -1,8 +1,4 @@
 function quizzOptionsHTML(options) {
-  quizzQuestionsCounter.questions = options.length;
-  quizzQuestionsCounter.answers = 0;
-  quizzQuestionsCounter.correct = 0;
-
   options.sort(() => Math.random() - 0.5);
   return /*html*/ `
   <div class="quizz-options">
@@ -41,7 +37,25 @@ function quizzQuestionHTML(question) {
 }
 
 function quizzQuestionsHTML(questions) {
+  quizzQuestionsCounter.questions = questions.length;
+  quizzQuestionsCounter.answered = 0;
+  quizzQuestionsCounter.correct = 0;
   return questions.reduce((acc, question) => acc + quizzQuestionHTML(question), "");
+}
+
+function quizzResultHTML(result, percentage) {
+  console.log(result);
+  return /*html*/ `
+  <div class="quizz-result">
+    <div class="quizz-question" style="background-color: ${result.color}">
+      <h3>${percentage}% de acerto: ${result.title}</h3>
+    </div>
+    <div class="result-container">
+      <img src=${result.image} alt=${result.title} />
+      <p>${result.text}</p>
+    </div>
+  </div>
+  `;
 }
 
 function quizzPageHTML(quizz) {
@@ -59,14 +73,31 @@ function clickOption(el) {
     if (el.classList.contains("correct")) {
       quizzQuestionsCounter.correct++;
     }
-    quizzTotalQuestionsCount++;
-    if (quizzQuestionsCounter.questions === ++quizzQuestionsCounter.answered) {
+    if (++quizzQuestionsCounter.answered === quizzQuestionsCounter.questions) {
       quizzPercentage = Math.round(
         (100 * quizzQuestionsCounter.correct) / quizzQuestionsCounter.questions
       );
-      // renderResults(quizzPercentage);
+
+      setTimeout(
+        renderResults,
+        2000,
+        calculateResult(playQuizz.levels, quizzPercentage),
+        quizzPercentage
+      );
     } else {
-      setTimeout(scroll, 2000, quizzQuestionsEl[quizzIdx++]);
+      setTimeout(scroll, 2000, quizzEl[++quizzIdx]);
     }
   }
+}
+
+function calculateResult(results, percentage) {
+  results.sort();
+
+  let result;
+  for (let i = 0; i < results.length; i++) {
+    if (results[i].minValue > percentage) break;
+    result = results[i];
+  }
+
+  return result;
 }

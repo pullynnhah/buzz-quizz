@@ -18,7 +18,10 @@ function getQuizz(quizzId) {
   renderLoader();
   axios
     .get(`${API_URI}/${quizzId}`)
-    .then(res => renderQuizzPage(res.data))
+    .then(res => {
+      playQuizz = res.data;
+      renderQuizzPage(playQuizz);
+    })
     .catch(err => console.error("getQuizz: " + err));
 }
 
