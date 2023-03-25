@@ -1,4 +1,5 @@
 function getQuizzes() {
+  renderLoader();
   axios.get(API_URI).then(res => {
     const ids = [12];
     const [userQuizzes, allQuizzes] = res.data.reduce(
