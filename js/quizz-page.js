@@ -44,7 +44,6 @@ function quizzQuestionsHTML(questions) {
 }
 
 function quizzResultHTML(result, percentage) {
-  console.log(result);
   return /*html*/ `
   <div class="quizz-result">
     <div class="quizz-question" style="background-color: ${result.color}">
@@ -62,7 +61,11 @@ function quizzPageHTML(quizz) {
   return /*html*/ `
   <div class="quizz-page">
     ${bannerHTML(quizz)}
-    ${quizzQuestionsHTML(quizz.questions)}
+    <div class="quizzes">${quizzQuestionsHTML(quizz.questions)}</div>
+    <div class="nav-buttons">
+      <button class="red-btn" onclick="getQuizz(playQuizz.id)">Reiniciar Quizz</button>
+      <button class="btn" onclick="getQuizzes()">Voltar pra home</button>
+    </div>
   </div>`;
 }
 

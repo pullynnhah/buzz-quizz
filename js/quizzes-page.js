@@ -12,7 +12,7 @@ function allQuizzesHTML(quizzes) {
     (acc, quizz) =>
       acc +
       /*html*/ `
-    <article class="quizz">
+    <article class="quizz" onclick="getQuizz(${quizz.id})">
       <img src=${quizz.image} alt=${quizz.title} />
       <h3>${quizz.title}</h3>
     </article>
@@ -35,7 +35,7 @@ function userQuizzesHTML(quizzes) {
     (acc, quizz) =>
       acc +
       /*html*/ `
-    <article class="quizz">
+    <article class="quizz" onclick="getQuizz(${quizz.id})">
       <img src=${quizz.image} alt=${quizz.title} />
       <h3>${quizz.title}</h3>
       <div class="edit-container">

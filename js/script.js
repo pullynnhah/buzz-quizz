@@ -9,8 +9,7 @@ function renderQuizzPage(quizz) {
 }
 
 function renderResults(result, percentage) {
-  console.log("renderrrr");
-  mainEl.querySelector(".quizz-page").innerHTML += quizzResultHTML(result, percentage);
+  mainEl.querySelector(".quizz-page .quizzes").innerHTML += quizzResultHTML(result, percentage);
   scroll(mainEl.querySelector(".quizz-result"));
 }
 
@@ -36,6 +35,7 @@ let quizzEl;
 let quizzPercentage;
 let quizzIdx;
 let playQuizz;
+
 const quizzQuestionsCounter = {
   questions: 0,
   answered: 0,
