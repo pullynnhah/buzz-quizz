@@ -28,28 +28,30 @@
   font-size: 19px;
   line-height: 22px;
 
-  color: #bababa;
+  color: #555;
   border: 1px solid #d1d1d1;
   border-radius: 5px;
   padding: 0 14px;
 }
 
 .creation-page input::placeholder {
+  color: #bababa;
   font-style: italic;
 }
 
-.creation-page .error input {
+.creation-page .input-container.error input {
   background: #ffe9e9;
 }
 
-.creation-page .error p {
+.creation-page .input-container.error p {
+  display: initial;
   font-size: 16px;
   line-height: 19px;
   color: #ec362d;
   margin: 3px;
 }
 
-.creation-page :not(.error) p {
+.creation-page .input-container:not(.error) p {
   display: none;
 }
 
@@ -68,30 +70,30 @@
 }
 
 /* .quizz-questions */
-.creation-page .quizz-questions details {
+.creation-page details {
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-
   padding: 5%;
 }
-.creation-page .quizz-questions summary {
+
+.creation-page summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.creation-page .quizz-questions details h3,
-.creation-page .quizz-questions details h2 {
+.creation-page details h3,
+.creation-page details h2 {
   font-weight: 700;
   font-size: 20px;
   line-height: 23px;
 }
 
-.creation-page .quizz-questions summary ion-icon {
+.creation-page summary ion-icon {
   font-size: 30px;
 }
 
-.creation-page .quizz-questions details .input-pair {
+.creation-page details .input-pair {
   display: flex;
   flex-direction: column;
   gap: 12px;

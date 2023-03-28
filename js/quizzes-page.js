@@ -2,7 +2,7 @@ function noQuizzesHTML() {
   return /*html*/ `
   <div class="no-quizzes">
     <p>Você não criou nenhum<br />quizz ainda :(</p>
-    <button onclick="renderQuizzInfo()">Criar Quizz</button>
+    <button onclick="renderCreationPage(${creationIndex++}, ${isCreationFill})">Criar Quizz</button>
   </div>
   `;
 }
@@ -51,7 +51,7 @@ function userQuizzesHTML(quizzes) {
   <section class="user-quizzes" aria-labelledby="user-quizzes-title">
     <div class="quizzes-header">
       <h2 id="user-quizzes-title">Seus Quizzes</h2>
-      <ion-icon onclick="renderQuizzInfo()" name="add-circle"></ion-icon>
+      <ion-icon onclick="renderCreationPage(${creationIndex++}, ${isCreationFill})" name="add-circle"></ion-icon>
     </div>
     <div class="quizzes-list">${quizzesHTML}</div>
   </section>
