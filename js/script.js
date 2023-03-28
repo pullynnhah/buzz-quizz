@@ -13,6 +13,10 @@ function renderResults(result, percentage) {
   scroll(mainEl.querySelector(".quizz-result"));
 }
 
+function renderQuizzInfo() {
+  mainEl.innerHTML = quizzInfoHTML();
+}
+
 function renderLoader() {
   mainEl.innerHTML = /*html*/ `
   <div class="loader">
@@ -31,6 +35,7 @@ function scroll(el) {
 
 const mainEl = document.querySelector("main");
 
+// quizz-page
 let quizzEl;
 let quizzPercentage;
 let quizzIdx;
@@ -41,3 +46,6 @@ const quizzQuestionsCounter = {
   answered: 0,
   correct: 0
 };
+
+// creation-page
+let creationQuizz;

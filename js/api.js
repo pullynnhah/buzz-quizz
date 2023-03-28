@@ -27,4 +27,5 @@ function getQuizz(quizzId) {
 
 const API_URI = "https://mock-api.driven.com.br/api/vs/buzzquizz/quizzes";
 // getQuizzes();
-getQuizz(12);
+// getQuizz(12);
+// renderQuizzInfo();
