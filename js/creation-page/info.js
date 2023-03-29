@@ -33,7 +33,7 @@ function getInfo() {
   const levelsCountEl = infoEl.querySelector(".levels-count input");
 
   const title = getTitleInfo(titleEl);
-  const image = getImageInfo(imageEl);
+  const image = getImage(imageEl);
   const questionsCount = getQuestionsCountInfo(questionsCountEl);
   const levelsCount = getLevelsCountInfo(levelsCountEl);
 
@@ -41,8 +41,8 @@ function getInfo() {
     creationQuizz = {
       title,
       image,
-      questions: Array(questionsCount).fill({}),
-      levels: Array(levelsCount).fill({})
+      questions: questionsCount,
+      levels: levelsCount
     };
     renderCreationPage(creationIndex++, isCreationFill);
   }
@@ -50,14 +50,6 @@ function getInfo() {
 
 function getTitleInfo(el) {
   if (el.value.length >= 20 && el.value.length <= 65) {
-    delError(el);
-    return el.value;
-  }
-  return addError(el);
-}
-
-function getImageInfo(el) {
-  if (el.checkValidity()) {
     delError(el);
     return el.value;
   }

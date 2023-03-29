@@ -14,3 +14,11 @@ function openDetail(el) {
     });
   }
 }
+
+function getImage(el) {
+  if (el.checkValidity()) {
+    delError(el);
+    return el.value;
+  }
+  return addError(el);
+}
