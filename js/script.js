@@ -14,11 +14,15 @@ function renderResults(result, percentage) {
 }
 
 function renderCreationPage(pageIndex, isEdit) {
-  const htmls = [infoHTML, questionsHTML];
-  const fillers = [infoFiller, () => console.log("todo")];
+  const htmls = [infoHTML, questionsHTML, levelsHTML];
+  const fillers = [infoFiller, questionsFiller, levelsFiller];
 
   mainEl.innerHTML = htmls[pageIndex]();
   if (isEdit) fillers[pageIndex]();
+}
+
+function renderSuccessPage(quizzId, quizzImage, quizzTitle) {
+  mainEl.innerHTML = successPageHTML(quizzId, quizzImage, quizzTitle);
 }
 
 function renderLoader() {

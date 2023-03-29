@@ -2,21 +2,21 @@ function questionsHTML() {
   return /*html*/ `
   <div class="creation-page">
     <h2>Crie suas perguntas</h2>
-    ${detailsHTML(creationQuizz.questions)}
+    ${questionDetailsHTML(creationQuizz.questions)}
     <button onclick="getQuestions()" class="red-btn">Prosseguir pra criar níveis</button>
   </div>
   `;
 }
 
-function detailsHTML(questionsCount) {
-  let html = detailHTML(1, true);
-  for (let i = 2; i <= questionsCount; i++) html += detailHTML(i, false);
+function questionDetailsHTML(questionsCount) {
+  let html = questionDetailHTML(1, true);
+  for (let i = 2; i <= questionsCount; i++) html += questionDetailHTML(i, false);
   return html;
 }
 
-function detailHTML(questionIndex, isOpen) {
+function questionDetailHTML(questionIndex, isOpen) {
   return /*html*/ `
-    <div class="quizz-questions">
+    <div class="quizz-question">
       <details ${isOpen ? "open" : ""} ontoggle=openDetail(this)>
         <summary>
           <h3>Pergunta ${questionIndex}</h3>
@@ -25,7 +25,7 @@ function detailHTML(questionIndex, isOpen) {
         <div class="input-pair">
           <div class="input-container title">
             <input type="text" placeholder="Texto da pergunta" />
-            <p>O título da pergunta deve ter no mínimo 20 caracteres</p>
+            <p>O texto da pergunta deve ter no mínimo 20 caracteres</p>
           </div>
           <div class="input-container color">
             <input type="text" placeholder="Cor de fundo da pergunta" />
@@ -52,7 +52,7 @@ function rightAnswerHTML() {
       <p>A resposta correta não pode ser vazia</p>
     </div>
     <div class="input-container right-image">
-      <input type="text" placeholder="URL da imagem" required />
+      <input type="url" inputmode="url" placeholder="URL da imagem" required />
       <p>O valor informado não é uma URL válida</p>
     </div>
   </div>`;
@@ -69,7 +69,7 @@ function wrongAnswersHTML() {
       <p>Esta resposta errada não pode ser vazia</p>
     </div>
     <div class="input-container wrong-image">
-      <input type="text" placeholder="URL da imagem ${num}" />
+      <input type="url" inputmode="url" placeholder="URL da imagem ${num}" />
       <p>O valor informado não é uma URL válida</p>
     </div>
   </div>
@@ -79,12 +79,12 @@ function wrongAnswersHTML() {
 }
 
 function getQuestions() {
-  const questionsEl = document.querySelectorAll(".creation-page .quizz-questions");
+  const questionsEl = document.querySelectorAll(".creation-page .quizz-question");
   const questions = [...questionsEl].map(getQuestion);
-  console.log(questions);
-  // FIXME: why is it getting false like that?
-  if (questions.includes("false")) creationQuizz.questions = questions;
-  console.log(creationQuizz);
+  if (!questions.includes(false)) {
+    creationQuizz.questions = questions;
+    renderCreationPage(creationIndex, isCreationFill);
+  }
 }
 
 function getQuestion(el) {
@@ -154,11 +154,13 @@ function getAnswers(el) {
   if ((hasRightError && answers.length < 1) || (!hasRightError && answers.length < 2)) {
     addError(wrongTextEls[0]);
     addError(wrongImageEls[0]);
+    return false;
   }
   if (hasRightError) return false;
   if (hasWrongError) return false;
   return answers;
 }
+
 function getTitleQuestion(el) {
   if (el.value.length >= 20) {
     delError(el);
