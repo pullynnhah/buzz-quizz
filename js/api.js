@@ -1,4 +1,5 @@
 function getQuizzes() {
+  isCreationFill = false;
   renderLoader();
   axios
     .get(API_URI)
@@ -25,6 +26,17 @@ function getQuizz(quizzId) {
     .catch(err => console.error("getQuizz: " + err));
 }
 
+function getEditQuizz(quizzId) {
+  renderLoader();
+  axios
+    .get(`${API_URI}/${quizzId}`)
+    .then(res => {
+      editQuizz = res.data;
+      renderCreationPage(0, isCreationFill);
+    })
+    .catch(err => console.error("getEditQuizz: " + err));
+}
+
 function postQuizz() {
   renderLoader();
   axios
@@ -35,6 +47,28 @@ function postQuizz() {
       renderSuccessPage(id, image, title);
     })
     .catch(err => console.error("postQuizz: " + err));
+}
+
+function putQuizz(quizzId) {
+  renderLoader();
+  const key = getUserKey(quizzId);
+  if (key) {
+    axios
+      .put(`${API_URI}/${quizzId}`, creationQuizz, { headers: { "Secret-Key": key } })
+      .then(getQuizzes)
+      .catch(err => console.error("putQuizz: " + err));
+  } else alert("Esse quizz não pertence a você!");
+}
+
+function delQuizz(quizzId) {
+  renderLoader();
+  const key = getUserKey(quizzId);
+  if (key) {
+    axios
+      .delete(`${API_URI}/${quizzId}`, { headers: { "Secret-Key": key } })
+      .then(getQuizzes)
+      .catch(err => console.error("delQuizz: " + err));
+  } else alert("Esse quizz não pertence a você!");
 }
 const API_URI = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 getQuizzes();

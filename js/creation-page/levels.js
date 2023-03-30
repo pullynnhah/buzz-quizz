@@ -47,10 +47,13 @@ function getLevels() {
   const levelsEl = document.querySelectorAll(".creation-page .quizz-level");
   const levels = [...levelsEl].map(getLevel);
   if (!levels.includes(false)) {
-    console.log(levels.map(level => level.minValue).includes(0));
     if (levels.map(level => level.minValue).includes(0)) {
       creationQuizz.levels = levels;
-      postQuizz();
+      if (isCreationFill) {
+        putQuizz(editId);
+      } else {
+        postQuizz();
+      }
     } else alert("Pelo menos um nível tem que ter 0.");
   }
 }

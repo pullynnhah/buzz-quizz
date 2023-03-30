@@ -12,3 +12,8 @@ function getUserQuizzes() {
 function getUserQuizzIds() {
   return Object.keys(getUserQuizzes()).map(Number);
 }
+
+function getUserKey(quizzId) {
+  const quizzes = getUserQuizzes();
+  return quizzes[quizzId];
+}

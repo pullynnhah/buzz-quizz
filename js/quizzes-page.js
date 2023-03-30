@@ -39,8 +39,8 @@ function userQuizzesHTML(quizzes) {
       <img src=${quizz.image} alt=${quizz.title} />
       <h3>${quizz.title}</h3>
       <div class="edit-container">
-        <ion-icon name="create-outline"></ion-icon>
-        <ion-icon name="trash-outline"></ion-icon>
+        <ion-icon onclick="edit(${quizz.id})" name="create-outline"></ion-icon>
+        <ion-icon onclick="del(${quizz.id})" name="trash-outline"></ion-icon>
       </div>
     </article>
     `,

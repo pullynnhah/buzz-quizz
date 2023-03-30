@@ -41,6 +41,17 @@ function scroll(el) {
   });
 }
 
+function edit(quizzId) {
+  event.stopImmediatePropagation();
+  isCreationFill = true;
+  editId = quizzId;
+  getEditQuizz(quizzId);
+}
+
+function del(quizzId) {
+  event.stopImmediatePropagation();
+  if (confirm("Deseja mesmo deletar esse QUIZZ?")) delQuizz(quizzId);
+}
 const mainEl = document.querySelector("main");
 
 // quizz-page
@@ -57,6 +68,7 @@ const quizzQuestionsCounter = {
 
 // creation-page
 let creationQuizz;
+let editId;
 let creationIndex = 0;
 let isCreationFill = true;
 let editQuizz = {
