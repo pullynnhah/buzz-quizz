@@ -70,5 +70,5 @@ function delQuizz(quizzId) {
       .catch(err => console.error("delQuizz: " + err));
   } else alert("Esse quizz não pertence a você!");
 }
-const API_URI = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
+const API_URI = "https://mock-api.driven.com.br/api/vs/buzzquizz/quizzes";
 getQuizzes();
